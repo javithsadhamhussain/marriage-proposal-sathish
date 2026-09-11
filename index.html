@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sadham — A Life, Shared</title>
+<meta name="description" content="Marriage profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     EDIT YOUR CONTENT IN THE <script> BLOCK AT THE BOTTOM OF THIS
+     FILE — look for "const profileData". You will not need to
+     touch any HTML or CSS to personalize this page.
+     ============================================================ */
+
+  :root{
+    --ink:#1a1713;
+    --ivory:#f8f4ec;
+    --ivory-dim:#efe7d8;
+    --brass:#9c7530;
+    --brass-light:#d1a862;
+    --muted:#726b5c;
+    --line: rgba(26,23,19,0.16);
+    --line-soft: rgba(26,23,19,0.09);
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Manrope', sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(209,168,98,0.10), transparent 60%),
+      var(--ivory);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--brass-light); color:var(--ivory); }
+
+  a{ color:inherit; }
+
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:11px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-weight:700;
+  }
+
+  .rule{
+    width:56px;
+    height:1px;
+    background:var(--brass);
+    margin:18px auto;
+  }
+  .rule.left{ margin:18px 0; }
+
+  /* ---------- Signature element: top nav with brass scroll-progress line ---------- */
+  .topnav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:70;
+    background:rgba(247,243,236,0.86);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .topnav-inner{
+    max-width:1100px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .topnav-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--ink);
+    flex:none;
+  }
+  .topnav-mono{
+    width:28px; height:28px;
+    border-radius:50%;
+    border:1px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-style:italic; font-size:12px;
+    color:var(--brass);
+    flex:none;
+  }
+  .topnav-name{
+    font-family:var(--serif);
+    font-size:19px;
+    letter-spacing:0.01em;
+    white-space:nowrap;
+  }
+  .topnav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    margin:0; padding:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .topnav-links::-webkit-scrollbar{ display:none; }
+  .topnav-links a{
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--muted);
+    font-weight:600;
+    white-space:nowrap;
+    padding:4px 2px;
+    border-bottom:1px solid transparent;
+    transition:color 0.25s ease, border-color 0.25s ease;
+  }
+  .topnav-links a:hover{ color:var(--ink); }
+  .topnav-links a.active{ color:var(--brass); border-color:var(--brass); }
+  .topnav-progress{
+    height:2px;
+    background:var(--brass);
+    width:0%;
+    transition:width 0.1s linear;
+  }
+  @media (max-width:760px){
+    .topnav-inner{ padding:14px 18px; gap:14px; }
+    .topnav-name{ font-size:16px; }
+    .topnav-links{ gap:18px; }
+    .topnav-links a{ font-size:11px; }
+  }
+
+  /* ---------- Layout shells ---------- */
+  section{
+
+    position:relative;
+    padding:120px 24px;
+    max-width:860px;
+    margin:0 auto;
+  }
+  section.band{
+    max-width:none;
+    background:var(--ivory-dim);
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+  }
+  section.band > .inner{ max-width:860px; margin:0 auto; }
+
+  @media (max-width:640px){
+    section{ padding:88px 20px; }
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:140px 24px 80px;
+    position:relative;
+  }
+
+  .gallery-section{
+    padding:24px 24px 0;
+    max-width:860px;
+    margin:0 auto 12px;
+  }
+  .gallery-card{
+    background:rgba(255,255,255,0.7);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:18px;
+    box-shadow:0 16px 40px -24px rgba(26,23,19,0.28);
+  }
+  .carousel{
+    position:relative;
+    overflow:hidden;
+    border-radius:18px;
+    background:#e9dfce;
+    touch-action:pan-y;
+    user-select:none;
+  }
+  .carousel-track{
+    display:flex;
+    width:100%;
+    transition:transform 0.35s ease;
+    will-change:transform;
+  }
+  .carousel-slide{
+    flex:0 0 100%;
+    width:100%;
+    aspect-ratio:40 / 65;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#e8dfcc;
+  }
+  .carousel-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .carousel-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,248,240,0.9);
+    color:var(--ink);
+    font-size:24px;
+    cursor:pointer;
+    box-shadow:0 8px 20px -10px rgba(26,23,19,0.3);
+    z-index:2;
+  }
+  .carousel-btn.prev{ left:12px; }
+  .carousel-btn.next{ right:12px; }
+  .carousel-btn:hover{ background:var(--ivory); }
+  .carousel-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+  }
+  .carousel-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    border:none;
+    background:rgba(26,23,19,0.25);
+    cursor:pointer;
+    padding:0;
+  }
+  .carousel-dot.active{ background:var(--brass); }
+  @media (max-width:640px){
+    .gallery-section{ padding:20px 20px 0; }
+    .gallery-card{ padding:12px; }
+    .carousel-slide{ aspect-ratio:30 / 52; }
+  }
+  .hero-frame{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    border:1px solid var(--brass);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:36px;
+    position:relative;
+    box-shadow:0 0 0 1px rgba(156,117,48,0.05), 0 8px 28px -8px rgba(156,117,48,0.35);
+  }
+  .hero-frame::before{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border-radius:50%;
+    border:1px solid var(--line);
+  }
+  .hero-frame .mono{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:34px;
+    color:var(--brass);
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(48px, 9vw, 92px);
+    line-height:1;
+    margin:0;
+    letter-spacing:0.01em;
+  }
+  .hero .tagline{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(18px, 2.4vw, 24px);
+    color:var(--muted);
+    margin-top:18px;
+    max-width:520px;
+  }
+  .hero .meta-row{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:44px;
+    font-size:13px;
+    letter-spacing:0.06em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .hero .meta-row span{ font-weight:600; color:var(--ink); }
+  .scroll-cue{
+    position:absolute;
+    bottom:36px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:11px;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .scroll-cue .stem{
+    width:1px; height:36px; background:var(--line);
+    position:relative; overflow:hidden;
+  }
+  .scroll-cue .stem::after{
+    content:"";
+    position:absolute;
+    top:-100%; left:0; width:100%; height:100%;
+    background:var(--brass);
+    animation:drip 2.2s ease-in-out infinite;
+  }
+  @keyframes drip{
+    0%{ top:-100%; }
+    60%{ top:100%; }
+    100%{ top:100%; }
+  }
+
+  /* ---------- Section headers ---------- */
+  .head{ text-align:center; margin-bottom:56px; }
+  .head h2{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(32px, 4vw, 44px);
+    margin:14px 0 0;
+  }
+
+  /* ---------- About ---------- */
+  .about-text{
+    font-family:var(--serif);
+    font-size:clamp(20px, 2.6vw, 26px);
+    line-height:1.6;
+    text-align:center;
+    color:var(--ink);
+    font-weight:400;
+  }
+
+  /* ---------- Detail grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+  .cell{
+    padding:22px 20px;
+    border-bottom:1px solid var(--line);
+    border-right:1px solid var(--line);
+  }
+  /* In two-column layout, remove right border for the second column cells */
+  .grid .cell:nth-child(2n){ border-right:none; }
+  @media (max-width:640px){
+    .grid{ grid-template-columns:1fr; }
+    /* single column: no right borders */
+    .cell{ border-right:none; }
+  }
+  .cell .label{
+    font-size:10.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .cell .value{
+    font-family:var(--serif);
+    font-size:20px;
+    color:var(--ink);
+  }
+
+  /* ---------- Family list ---------- */
+  .family-list{ list-style:none; padding:0; margin:0; }
+  .family-list li{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    align-items:center;
+  }
+  .family-list li:first-child{ border-top:1px solid var(--line); }
+  .family-list .role{
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .family-list .name{
+    font-family:var(--serif);
+    font-size:18px;
+    text-align:left;
+  }
+  .family-list .job{
+    font-size:13px;
+    color:var(--muted);
+    text-align:right;
+  }
+  .family-paragraph ul{ margin:0; padding-left:18px; }
+  .family-paragraph .family-name{ font-weight:700; color:var(--brass); margin:0 6px; font-style:italic; }
+  .family-description{
+    margin-top:30px;
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.7;
+    color:var(--ink);
+  }
+  .family-description p{ margin:0 0 18px; }
+  @media (max-width:640px){
+    .family-list li{ grid-template-columns: 1fr; gap:6px; padding:12px 0; }
+    .family-list .job{ text-align:left; }
+  }
+
+  /* ---------- Interests / tags ---------- */
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-top:8px;
+  }
+  .tag{
+    font-size:13px;
+    padding:9px 18px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    color:var(--ink);
+    background:var(--ivory);
+    letter-spacing:0.02em;
+  }
+  section.band .tag{ background:var(--ivory); }
+
+  .expect-text{
+    font-family:var(--serif);
+    font-size:19px;
+    line-height:1.7;
+    color:var(--ink);
+    text-align:center;
+    max-width:640px;
+    margin:0 auto 40px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{ text-align:center; }
+  .contact-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    align-items:center;
+    margin-top:32px;
+  }
+  .contact-list a{
+    font-family:var(--serif);
+    font-size:24px;
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.25s ease, color 0.25s ease;
+  }
+  .contact-list a:hover{ border-color:var(--brass); color:var(--brass); }
+  .contact-row{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    margin-bottom:18px;
+  }
+  .contact-label{
+    font-size:10.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-weight:700;
+  }
+  .contact-note{
+    margin-top:28px;
+    font-size:13px;
+    color:var(--muted);
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- Horoscope charts ---------- */
+  .horoscope-section .head{ margin-bottom:40px; }
+  .chart-section-title{
+    font-family:var(--serif);
+    font-size:clamp(20px, 2.4vw, 26px);
+    text-align:center;
+    margin:0 0 18px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .chart-section-title span:last-child{
+    font-size:0.72em;
+    color:var(--muted);
+  }
+  .horoscope-summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:620px;
+    margin:0 auto 32px;
+  }
+  .horoscope-summary article{
+    padding:16px 18px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,0.42);
+  }
+  .horoscope-summary h3{
+    margin:0 0 10px;
+    color:var(--brass);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+  .horoscope-summary p{
+    margin:6px 0;
+    font-family:var(--serif);
+    font-size:18px;
+    line-height:1.35;
+  }
+  .horoscope-summary .summary-label{
+    display:block;
+    margin-bottom:2px;
+    color:var(--brass);
+    font-family:var(--sans);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .horoscope-summary .summary-value{
+    display:block;
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:20px;
+  }
+  .horoscope-summary .english-section p{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    flex-wrap:nowrap;
+  }
+  .horoscope-summary .english-section .summary-label,
+  .horoscope-summary .english-section .summary-value{
+    display:inline;
+  }
+  .horoscope-summary .tamil-section p{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    flex-wrap:nowrap;
+  }
+  .horoscope-summary .tamil-section .summary-label,
+  .horoscope-summary .tamil-section .summary-value{
+    display:inline;
+  }
+  .horoscope-summary .tamil-section .summary-value{
+    white-space:nowrap;
+  }
+  @media (max-width:640px){
+    .horoscope-summary{ grid-template-columns:1fr; gap:12px; }
+  }
+  .chart-card{
+    background:rgba(255,255,255,0.62);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px;
+    margin:0 auto 28px;
+    max-width:620px;
+    box-shadow:0 14px 36px -28px rgba(26,23,19,0.4);
+  }
+  .chart-header{ display:flex; justify-content:center; margin-bottom:14px; }
+  .chart-badge{
+    color:var(--brass);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .si-grid{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    background:rgba(248,244,236,0.7);
+  }
+  .si-grid td{
+    width:25%;
+    height:82px;
+    border:1px solid var(--line);
+    padding:6px;
+    vertical-align:middle;
+  }
+  .planet-box{
+    min-height:68px;
+    display:flex;
+    flex-wrap:wrap;
+    align-content:center;
+    justify-content:center;
+    gap:5px;
+  }
+  .pill{
+    display:inline-block;
+    padding:4px 6px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    color:var(--ink);
+    background:var(--ivory);
+    font-family:var(--sans);
+    font-size:11px;
+    line-height:1.2;
+    text-align:center;
+    white-space:nowrap;
+  }
+  .pill.is-lagna{ color:#7b5c16; border-color:var(--brass-light); }
+  .pill.is-good{ color:#356147; border-color:#8eae91; }
+  .pill.is-bad{ color:#8a4e42; border-color:#c99a8f; }
+  .center-cell{ background:var(--ivory-dim); }
+  .center-content{
+    min-height:145px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:8px;
+    color:var(--brass);
+  }
+  .astro-icon{ font-size:26px; }
+  .chart-name{
+    font-size:11px;
+    letter-spacing:0.16em;
+    font-weight:700;
+  }
+  @media (max-width:640px){
+    .chart-card{ padding:10px; }
+    .si-grid td{ height:70px; padding:4px; }
+    .planet-box{ min-height:56px; }
+    .pill{ font-size:9px; padding:3px 4px; }
+    .center-content{ min-height:120px; }
+  }
+
+  footer{
+    text-align:center;
+    padding:48px 24px 64px;
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  :focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+
+  /* ---------- Scale up for laptops / wide desktop ---------- */
+  @media (min-width:1440px){
+    .topnav-inner{ max-width:1280px; }
+    section{ max-width:980px; }
+    section.band > .inner{ max-width:980px; }
+    .hero-frame{ width:136px; height:136px; }
+    .hero-frame .mono{ font-size:38px; }
+    .hero h1{ font-size:clamp(64px, 6.5vw, 128px); }
+    .hero .tagline{ font-size:clamp(20px, 1.5vw, 28px); }
+    .about-text{ font-size:clamp(24px, 2vw, 30px); }
+    .expect-text{ font-size:21px; max-width:700px; }
+    .grid{ grid-template-columns:repeat(3, 1fr); }
+    .grid .cell{ border-right:none; }
+    .grid .cell:nth-child(3n+1),
+    .grid .cell:nth-child(3n+2){ border-right:1px solid var(--line); }
+    .cell .value{ font-size:21px; }
+  }
+
+  /* ---------- Scale up further for very large / TV screens ---------- */
+  @media (min-width:2200px){
+    body{ font-size:19px; }
+    .topnav-inner{ max-width:1500px; padding:22px 32px; }
+    .topnav-name{ font-size:22px; }
+    .topnav-links a{ font-size:14px; }
+    .topnav-mono{ width:34px; height:34px; font-size:14px; }
+    section{ max-width:1180px; padding:180px 24px; }
+    section.band > .inner{ max-width:1180px; }
+    .hero{ padding-top:200px; }
+    .hero-frame{ width:160px; height:160px; }
+    .hero-frame .mono{ font-size:46px; }
+    .hero h1{ font-size:clamp(84px, 6vw, 168px); }
+    .hero .tagline{ font-size:clamp(24px, 1.6vw, 32px); margin-top:26px; }
+    .hero .meta-row{ font-size:15px; gap:34px; margin-top:56px; }
+    .head h2{ font-size:clamp(38px, 3vw, 52px); }
+    .about-text{ font-size:clamp(28px, 1.8vw, 36px); }
+    .cell{ padding:30px 26px; }
+    .cell .label{ font-size:12px; }
+    .cell .value{ font-size:24px; }
+    .family-list .who{ font-size:22px; }
+    .tag{ font-size:15px; padding:11px 22px; }
+    .expect-text{ font-size:24px; max-width:820px; }
+    .contact-list a{ font-size:28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#" class="topnav-brand" id="navBrand">
+      <span class="topnav-mono" id="navMono">SK</span>
+      <span class="topnav-name" id="navName">Name</span>
+    </a>
+    <ul class="topnav-links" id="navLinks">
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#details" data-section="details">Career</a></li>
+      <li><a href="#family" data-section="family">Family</a></li>
+      <li><a href="#life" data-section="life">Interests</a></li>
+      <li><a href="#expect" data-section="expect">Partner</a></li>
+      <li><a href="#horoscope" data-section="horoscope">Horoscope</a></li>
+      <li><a href="#connect" data-section="connect">Connect</a></li>
+    </ul>
+  </div>
+  <div class="topnav-progress" id="navProgress"></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-frame"><span class="mono" id="heroMono">SK</span></div>
+  <h1 id="heroName">Sadham</h1>
+  <p class="tagline" id="heroTagline">Software Engineer · Grounded, curious, building a quiet, good life.</p>
+  <div class="meta-row" id="heroMeta"></div>
+  <div class="scroll-cue"><span>Scroll</span><span class="stem"></span></div>
+</section>
+
+<section class="gallery-section">
+  <div class="head reveal">
+    <h2>Photo Gallery</h2>
+  </div>
+  <div class="gallery-card reveal">
+    <div class="carousel" id="imageCarousel">
+      <div class="carousel-track" id="carouselTrack"></div>
+      <button class="carousel-btn prev" type="button" aria-label="Previous image">‹</button>
+      <button class="carousel-btn next" type="button" aria-label="Next image">›</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="head reveal">
+    <span class="eyebrow">The Essence</span>
+    <div class="rule"></div>
+  </div>
+  <p class="about-text reveal" id="aboutText"></p>
+  <p class="about-text reveal" id="aboutText2"></p>
+</section>
+
+<section class="band" id="details">
+  <div class="inner">
+    <div class="head reveal">
+      <span class="eyebrow">Particulars</span>
+      <h2>Personal &amp; Professional</h2>
+    </div>
+    <div class="grid reveal" id="detailsGrid"></div>
+  </div>
+</section>
+
+<section id="family">
+  <div class="head reveal">
+    <span class="eyebrow">Roots</span>
+    <h2>Family</h2>
+  </div>
+  <ul class="family-list reveal" id="familyList"></ul>
+  <div id="familyParagraph" class="reveal family-paragraph">
+    <p id="familyParagraphText"></p>
+  </div>
+  <div class="reveal family-description">
+    <p>I come from a loving and supportive family that values education, personal growth, and strong family bonds. My father is employed, and my mother is a homemaker. I have one sibling.</p>
+    <p>My younger sister has completed her M.Sc. In Mathematics. She is married and settled in Madurai. My brother-in-law works as a Credit Manager at IDFC FIRST Bank.</p>
+    <p>My parents have always placed great importance on education and have encouraged us to become well-educated, confident, and courageous individuals.</p>
+  </div>
+</section>
+
+<section class="band" id="life" style="display:none">
+  <div class="inner">
+    <div class="head reveal">
+      <span class="eyebrow">Beyond Work</span>
+      <h2>Interests</h2>
+    </div>
+    <div class="tags reveal" id="interestTags"></div>
+  </div>
+</section>
+
+<section id="expect">
+  <div class="head reveal">
+    <span class="eyebrow">Looking Ahead</span>
+    <h2>What I Value in a Partner</h2>
+  </div>
+  <p class="expect-text reveal" id="expectText"></p>
+</section>
+
+<section id="horoscope" class="horoscope-section">
+  <div class="head reveal">
+    <span class="eyebrow">Horoscope</span>
+  </div>
+  <div class="chart-section-title reveal">
+    <span>ஸ்ரீ மாலைக்காரியம்மன் துணை</span>
+    <span>ஜாதக கட்டம் (Charts)</span>
+  </div>
+  <div class="horoscope-summary reveal">
+    <article class="english-section">
+      <p><span class="summary-label">Zodiac Sign</span><span class="summary-value">Sagittarius</span></p>
+      <p><span class="summary-label">Natchatra</span><span class="summary-value">Mula 1-st feet</span></p>
+      <p><span class="summary-label">Lagnam</span><span class="summary-value">Taurus</span></p>
+    </article>
+    <article class="tamil-section">
+      <p><span class="summary-label">ராசி</span><span class="summary-value">தனுஷ்</span></p>
+      <p><span class="summary-label">நட்சத்திரம்</span><span class="summary-value">மூலம் 1-ஆம் பாதம்</span></p>
+      <p><span class="summary-label">லக்னம்</span><span class="summary-value">ரிஷபம்</span></p>
+    </article>
+  </div>
+
+  <div class="chart-card reveal">
+    <div class="chart-header"><span class="chart-badge">ராசி (Rasi)</span></div>
+    <table class="si-grid">
+      <tbody>
+        <tr>
+          <td><div class="planet-box"><span class="pill is-bad">சனி (வ)</span></div></td>
+          <td><div class="planet-box"></div></td>
+          <td><div class="planet-box"><span class="pill is-lagna">லக்னம்</span></div></td>
+          <td><div class="planet-box"></div></td>
+        </tr>
+        <tr>
+          <td><div class="planet-box"><span class="pill is-good">வியாழன்</span><span class="pill is-bad">கேது</span></div></td>
+          <td colspan="2" rowspan="2" class="center-cell"><div class="center-content"><span class="astro-icon">✦</span><span class="chart-name">RASI</span></div></td>
+          <td><div class="planet-box"><span class="pill is-lagna">செவ்வாய்</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="planet-box"></div></td>
+          <td><div class="planet-box"><span class="pill is-bad">ராகு</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="planet-box"><span class="pill is-lagna">சந்திரன்</span></div></td>
+          <td><div class="planet-box"><span class="pill is-bad">சூரியன்</span><span class="pill is-lagna">புதன்</span><span class="pill is-good">சுக்கிரன்</span></div></td>
+          <td><div class="planet-box"></div></td>
+          <td><div class="planet-box"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="chart-card reveal">
+    <div class="chart-header"><span class="chart-badge">அம்சம் (Amsam)</span></div>
+    <table class="si-grid">
+      <tbody>
+        <tr>
+          <td><div class="planet-box"></div></td>
+          <td><div class="planet-box"><span class="pill is-lagna">சந்திரன்</span><span class="pill is-bad">ராகு</span></div></td>
+          <td><div class="planet-box"><span class="pill is-good">வியாழன்</span></div></td>
+          <td><div class="planet-box"></div></td>
+        </tr>
+        <tr>
+          <td><div class="planet-box"><span class="pill is-lagna">லக்னம்</span><span class="pill is-bad">சனி (வ)</span></div></td>
+          <td colspan="2" rowspan="2" class="center-cell"><div class="center-content"><span class="astro-icon">✧</span><span class="chart-name">AMSAM</span></div></td>
+          <td><div class="planet-box"><span class="pill is-lagna">புதன்</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="planet-box"><span class="pill is-bad">செவ்வாய்</span></div></td>
+          <td><div class="planet-box"><span class="pill is-bad">சூரியன்</span></div></td>
+        </tr>
+        <tr>
+          <td><div class="planet-box"></div></td>
+          <td><div class="planet-box"></div></td>
+          <td><div class="planet-box"><span class="pill is-bad">கேது</span></div></td>
+          <td><div class="planet-box"><span class="pill is-good">சுக்கிரன்</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="band" id="connect">
+  <div class="inner contact-wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Let's Connect</h2>
+    </div>
+    <div class="contact-list reveal" id="contactList"></div>
+    <p class="contact-note reveal" id="contactNote"></p>
+  </div>
+</section>
+
+<footer id="footerText"></footer>
+
+<script>
+/* ============================================================
+   EDIT EVERYTHING BELOW THIS LINE.
+   Fill in your real details, save the file, and re-deploy.
+   Leave any field blank ("") to hide that row automatically.
+   ============================================================ */
+function calculateAge(dobISO){
+  const dob = new Date(dobISO);
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if(m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+  return age;
+}
+function formatDate(dobISO){
+  const dob = new Date(dobISO);
+  return dob.toLocaleDateString('en-IN', { month:'short', year:'numeric' });
+}
+
+const DOB_ISO = "1998-11-21"; // 21-Nov-1998 — age recalculates automatically on every visit
+
+const profileData = {
+  name: "Sathish Kumar",
+  akaLabel: "",
+  initials: "SK",
+  tagline: "Associate · Grounded, curious, building a quiet, good life.",
+  heroMeta: [calculateAge(DOB_ISO) + " Years", "Madurai, Tamil Nadu"],
+
+  about: "I work with databases, so I’m wired to think in terms of structure and clarity — but outside of work, I keep life simple. Good people, honest conversations, and time spent on what really matters. I’m not looking for a performance, just a steady, warm life with someone who wants to build it together.",
+  about2: "I'm known for my patience, kindness, and cheerful personality. I deeply cherish family life and enjoy spending quality time with my family and friends. I find happiness in simple things such as small shopping trips & family outings. I love the theatrical experience of watching movies. I generally prefer to stay away from superstitions and value a simple and practical way of life.",
+
+  details: [
+    { label: "Date of Birth", value: formatDate(DOB_ISO) },
+    { label: "Age", value: calculateAge(DOB_ISO) + " Years" },
+    { label: "Height", value: "170 cm" },
+    { label: "Physical Status", value: "Normal", hidden: true },
+    { label: "Mother Tongue", value: "Tamil" },
+    { label: "Place of Birth", value: "Madurai" },
+    { label: "Occupation", value: "Associate, Cognizant Technology Solutions, Coimbatore (Hybrid)" },
+    { label: "Annual Income", value: "6.5 LPA" },
+    { label: "Languages Known", value: "Tamil, English" },
+    { label: "Diet", value: "Non-vegetarian", hidden: true },
+    { label: "Religious Values", value: "Attends Jummah Namaz", hidden: true },
+    { label: "Family Type", value: "Nuclear Family, Middle Class" }
+  ],
+
+  family: [
+    { role: "Father", name: "Sasikumar", job: "" },
+    { role: "Mother", name: "Latha", job: "" },
+    { role: "Younger Sister", name: "Nandhini", job: "" }
+  ],
+
+  interests: ["Theatre", "Pets", "Chinese Cuisine"],
+
+  expectations: "",
+
+  contact: [
+    { label: "Mobile (Self)", value: "+91 63839 73381", href: "tel:+916383973381" },
+    { label: "Mobile (Mother)", value: "+91 73051 02434", href: "tel:+917305102434", hidden: true },
+    { label: "Email", value: "", href: "" },
+    { label: "Instagram", value: "@sathish_kumar_s7", href: "https://instagram.com/sathish_kumar_s7" }
+  ],
+  contactNote: "Shared respectfully, for the purpose of marriage alliance.",
+
+  footer: "Crafted with care 💛 · Sathish Kumar"
+};
+
+/* ---------- Render ---------- */
+function el(tag, cls, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+document.getElementById('heroName').textContent = profileData.name + (profileData.akaLabel ? " " : "");
+if(profileData.akaLabel){
+  const aka = el('span', null, '');
+  aka.style.fontFamily = "var(--serif)";
+  aka.style.fontStyle = "italic";
+  aka.style.color = "var(--brass)";
+  aka.style.fontSize = "0.42em";
+  aka.style.verticalAlign = "middle";
+  aka.textContent = "@ " + profileData.akaLabel;
+  document.getElementById('heroName').appendChild(aka);
+}
+document.getElementById('heroMono').textContent = profileData.initials;
+document.getElementById('navMono').textContent = profileData.initials;
+document.getElementById('navName').textContent = profileData.name;
+document.getElementById('heroTagline').textContent = profileData.tagline;
+document.title = profileData.name + " — A Life, Shared";
+
+const metaRow = document.getElementById('heroMeta');
+profileData.heroMeta.filter(Boolean).forEach((m, i, arr) => {
+  metaRow.appendChild(el('span', null, m));
+  if(i < arr.length - 1) metaRow.appendChild(el('span', null, '&middot;'));
+});
+
+document.getElementById('aboutText').textContent = profileData.about;
+document.getElementById('aboutText').textContent = profileData.about;
+if(!profileData.about) document.getElementById('about').style.display = 'none';
+
+// Second stanza for the About/Essence section
+const aboutText2El = document.getElementById('aboutText2');
+if(aboutText2El){
+  aboutText2El.textContent = profileData.about2 || '';
+  if(!profileData.about2) aboutText2El.style.display = 'none';
+}
+
+const grid = document.getElementById('detailsGrid');
+profileData.details.filter(d => d.value && d.value !== "" && !d.hidden).forEach(d => {
+  const cell = el('div', 'cell');
+  cell.appendChild(el('div', 'label', d.label));
+  cell.appendChild(el('div', 'value', d.value));
+  grid.appendChild(cell);
+});
+
+const famList = document.getElementById('familyList');
+profileData.family.filter(f => (f.role || f.rel) && (f.name || f.who || f.job)).forEach(f => {
+  const li = el('li');
+  const role = f.role || f.rel || '';
+  let name = f.name || '';
+  let job = f.job || '';
+  if(!name && f.who && typeof f.who === 'string'){
+    const parts = f.who.split(' — ');
+    name = parts[0] || '';
+    job = parts[1] || '';
+  }
+  li.appendChild(el('span', 'role', role));
+  li.appendChild(el('span', 'name', name));
+  li.appendChild(el('span', 'job', job));
+  famList.appendChild(li);
+});
+if(!famList.children.length){
+  document.getElementById('family').style.display = 'none';
+}
+
+// Hide the family list and show the provided family details as bullets
+const familyParagraphBullets = [
+  { role: 'My Father', name: 'Sasikumar', desc: '' },
+  { role: 'My Mother', name: 'Latha', desc: '' },
+  { role: 'My Younger Sister', name: 'Nandhini', desc: '' }
+];
+const familyListEl = document.getElementById('familyList');
+if (familyListEl) familyListEl.style.display = 'none';
+const fpEl = document.getElementById('familyParagraphText');
+if (fpEl) {
+  const ul = document.createElement('ul');
+  ul.style.margin = '0';
+  ul.style.paddingLeft = '18px';
+  familyParagraphBullets.forEach(item => {
+    const li = document.createElement('li');
+    const roleNode = document.createTextNode(item.role + ', ');
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'family-name';
+    nameSpan.textContent = item.name;
+
+    // Build description fragment and highlight additional names if present
+    function buildDescFragment(desc, extraNames){
+      const frag = document.createDocumentFragment();
+      let remaining = desc;
+      while(remaining.length){
+        let earliestIndex = -1;
+        let matchName = null;
+        for(const n of extraNames){
+          const idx = remaining.indexOf(n);
+          if(idx >= 0 && (earliestIndex === -1 || idx < earliestIndex)){
+            earliestIndex = idx;
+            matchName = n;
+          }
+        }
+        if(earliestIndex === -1){
+          frag.appendChild(document.createTextNode(remaining));
+          break;
+        }
+        if(earliestIndex > 0){
+          frag.appendChild(document.createTextNode(remaining.slice(0, earliestIndex)));
+        }
+        const span = document.createElement('span');
+        span.className = 'family-name';
+        span.textContent = matchName;
+        frag.appendChild(span);
+        remaining = remaining.slice(earliestIndex + matchName.length);
+      }
+      return frag;
+    }
+
+    // common extra names to highlight
+    const extras = [];
+    const descFrag = buildDescFragment(' ' + item.desc, extras);
+
+    li.appendChild(roleNode);
+    li.appendChild(nameSpan);
+    li.appendChild(descFrag);
+    ul.appendChild(li);
+  });
+  fpEl.innerHTML = '';
+  fpEl.appendChild(ul);
+}
+
+const tagWrap = document.getElementById('interestTags');
+profileData.interests.filter(Boolean).forEach(t => tagWrap.appendChild(el('span', 'tag', t)));
+if(!profileData.interests.filter(Boolean).length) document.getElementById('life').style.display = 'none';
+
+document.getElementById('expectText').textContent = profileData.expectations;
+if(!profileData.expectations) document.getElementById('expect').style.display = 'none';
+
+const contactList = document.getElementById('contactList');
+profileData.contact.filter(c => c.value && !c.hidden).forEach(c => {
+  const row = el('div', 'contact-row');
+  row.appendChild(el('div', 'contact-label', c.label));
+  const a = el('a', null, c.value);
+  a.href = c.href || '#';
+  row.appendChild(a);
+  contactList.appendChild(row);
+});
+document.getElementById('contactNote').textContent = profileData.contactNote;
+if(!contactList.children.length && !profileData.contactNote) document.getElementById('connect').style.display = 'none';
+document.getElementById('footerText').textContent = profileData.footer;
+
+/* ---------- Gallery carousel ---------- */
+const fallbackImages = [
+  'images/1.jpeg',
+  'images/2.jpeg',
+  'images/3.jpeg',
+  'images/4.jpeg'
+];
+const driveFolderUrl = 'https://drive.google.com/drive/folders/1tzkF_5bB1UbH2nwKGdxExtQY64He9HaA';
+const carouselTrack = document.getElementById('carouselTrack');
+const carouselDots = document.getElementById('carouselDots');
+const carousel = document.getElementById('imageCarousel');
+let carouselImages = [];
+let carouselIndex = 0;
+let dragStartX = null;
+let dragOffset = 0;
+
+function buildDriveImageUrls(text){
+  const urls = [];
+  const matches = text.matchAll(/https:\/\/drive\.google\.com\/file\/d\/([^/]+)/g);
+  for (const match of matches) {
+    urls.push('https://drive.google.com/uc?export=view&id=' + match[1]);
+  }
+  return urls;
+}
+
+function renderCarousel(){
+  carouselTrack.innerHTML = '';
+  carouselDots.innerHTML = '';
+
+  if (!carouselImages.length) {
+    carouselImages = fallbackImages;
+  }
+
+  carouselImages.forEach((src, index) => {
+    const slide = el('div', 'carousel-slide');
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Profile photo ' + (index + 1);
+    img.onerror = () => {
+      img.src = fallbackImages[index % fallbackImages.length];
+    };
+    slide.appendChild(img);
+    carouselTrack.appendChild(slide);
+
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'carousel-dot' + (index === carouselIndex ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to image ' + (index + 1));
+    dot.addEventListener('click', () => {
+      carouselIndex = index;
+      updateCarousel();
+    });
+    carouselDots.appendChild(dot);
+  });
+
+  updateCarousel();
+}
+
+function updateCarousel(){
+  requestAnimationFrame(() => {
+    carouselTrack.style.transform = 'translate3d(-' + (carouselIndex * 100) + '%, 0, 0)';
+    Array.from(carouselDots.children).forEach((dot, index) => {
+      dot.classList.toggle('active', index === carouselIndex);
+    });
+  });
+}
+
+function setCarouselIndex(nextIndex){
+  carouselIndex = (nextIndex + carouselImages.length) % carouselImages.length;
+  updateCarousel();
+}
+
+function nextCarousel(){
+  setCarouselIndex(carouselIndex + 1);
+}
+
+function prevCarousel(){
+  setCarouselIndex(carouselIndex - 1);
+}
+
+function finishSwipe(){
+  if (dragOffset > 70) {
+    prevCarousel();
+  } else if (dragOffset < -70) {
+    nextCarousel();
+  }
+  dragStartX = null;
+  dragOffset = 0;
+}
+
+document.querySelector('.carousel-btn.prev').addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  prevCarousel();
+});
+document.querySelector('.carousel-btn.next').addEventListener('click', (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  nextCarousel();
+});
+
+carousel.addEventListener('pointerdown', (event) => {
+  dragStartX = event.clientX;
+  dragOffset = 0;
+  event.preventDefault();
+});
+
+carousel.addEventListener('pointermove', (event) => {
+  if (dragStartX === null) return;
+  dragOffset = event.clientX - dragStartX;
+});
+
+carousel.addEventListener('pointerup', finishSwipe);
+carousel.addEventListener('pointercancel', finishSwipe);
+
+carousel.addEventListener('touchstart', (event) => {
+  dragStartX = event.touches[0].clientX;
+  dragOffset = 0;
+}, { passive: true });
+
+carousel.addEventListener('touchmove', (event) => {
+  if (dragStartX === null) return;
+  dragOffset = event.touches[0].clientX - dragStartX;
+}, { passive: true });
+
+carousel.addEventListener('touchend', finishSwipe);
+carousel.addEventListener('touchcancel', finishSwipe);
+
+carousel.addEventListener('mousedown', (event) => {
+  dragStartX = event.clientX;
+  dragOffset = 0;
+});
+
+carousel.addEventListener('mousemove', (event) => {
+  if (dragStartX === null) return;
+  dragOffset = event.clientX - dragStartX;
+});
+
+carousel.addEventListener('mouseup', finishSwipe);
+carousel.addEventListener('mouseleave', finishSwipe);
+
+function loadDriveImages(){
+  const proxyUrl = 'https://r.jina.ai/http://' + driveFolderUrl;
+  fetch(proxyUrl)
+    .then(res => res.text())
+    .then(text => {
+      const driveImages = buildDriveImageUrls(text);
+      if (driveImages.length) {
+        carouselImages = driveImages;
+      } else {
+        carouselImages = fallbackImages;
+      }
+      renderCarousel();
+    })
+    .catch(() => {
+      carouselImages = fallbackImages;
+      renderCarousel();
+    });
+}
+
+loadDriveImages();
+
+/* ---------- Scroll reveal ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(node => io.observe(node));
+
+/* ---------- Top nav: scroll progress, scrollspy, hide links for missing sections ---------- */
+const navProgress = document.getElementById('navProgress');
+function updateNavProgress(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+  navProgress.style.width = (pct * 100) + "%";
+}
+window.addEventListener('scroll', updateNavProgress, { passive:true });
+updateNavProgress();
+
+document.getElementById('navBrand').addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({ top:0, behavior:'smooth' });
+});
+
+const navLinkEls = Array.from(document.querySelectorAll('.topnav-links a'));
+navLinkEls.forEach(link => {
+  const targetSection = document.getElementById(link.dataset.section);
+  if(!targetSection || targetSection.style.display === 'none'){
+    link.closest('li').style.display = 'none';
+  }
+});
+
+const visibleSections = navLinkEls
+  .map(link => document.getElementById(link.dataset.section))
+  .filter(sec => sec && sec.style.display !== 'none');
+
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      navLinkEls.forEach(l => l.classList.remove('active'));
+      const active = navLinkEls.find(l => l.dataset.section === entry.target.id);
+      if(active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: "-45% 0px -45% 0px" });
+visibleSections.forEach(sec => spy.observe(sec));
+</script>
+
+</body>
+</html>
